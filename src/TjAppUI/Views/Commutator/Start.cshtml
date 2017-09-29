@@ -1,0 +1,58 @@
+@model TjAppUI.ViewModel.CustomerProductShell
+@{ViewData["Title"] = "Start";}
+
+<i style="font-size:x-large;"> Products </i>
+    <div class="form-group">
+        <i style="font-size:medium;"> Customer: </i>
+            <select id="name_customer">
+                @foreach (var x in Model.Customers)
+                {
+                    <option value="@x.Id" style="color: chocolate;">@x.CustomerFullName</option>
+                }
+            </select>
+
+        <span style="text-align:center;">
+            <i>Count product: <b id="count_product">0</b></i>
+            <i>Total price: <b id="total_price">0</b></i>
+            <input type="button" id="send_to_server" value="Send to Server" class="btn btn-info" />
+        </span>
+    </div>
+    <table class="table table-striped table-hover" style="text-align:center;">
+        <thead>
+            <tr>
+                <th class="col-md-1">ID</th>
+                <th class="col-md-3">Name</th>
+                <th class="col-md-1">Price</th>
+                <th class="col-md-1">Count</th>
+                <th class="col-md-2">Product count</th>
+                <th class="col-md-4">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model.Products)
+            {
+                <tr>
+                    <td>@p.Id</td>
+                    <td>@p.Name</td>
+                    <td>@p.Price</td>
+                    <td>@p.Quantity</td>
+                    <td><input type="number" value="1" style="width:55px;"></td>
+                    <td>
+                        <input type="button" name="add_to_bag" value="Add to Bag" class="btn btn-info" style="padding:3px;" />
+                        <input type="button" name="remove_from_bag" value="Remove" class="btn btn-info" style="padding:3px;" />
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+<hr />
+<a asp-action="CustomerWithWithoutBuy" asp-route-flag="true" class="btn btn-info">Customer With Buy</a>
+<a asp-action="CustomerWithWithoutBuy" asp-route-flag="false" class="btn btn-info">Customer Without Buy</a>
+<a href="/Orders/Index" class="btn btn-info">Order List</a>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/js/localjs.js"></script>
+}
